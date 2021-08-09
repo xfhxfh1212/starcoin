@@ -227,7 +227,7 @@ Get the NFT info by the NFT id.
 <summary>Implementation</summary>
 
 
-<pre><code><b>public</b> <b>fun</b> <a href="NFT.md#0x1_NFTGallery_get_nft_info_by_id">get_nft_info_by_id</a>&lt;NFTMeta: <b>copy</b> + store + drop, NFTBody: store&gt;(owner: address, id: u64): <a href="Option.md#0x1_Option">Option</a>&lt;<a href="NFT.md#0x1_NFT_NFTInfo">NFT::NFTInfo</a>&lt;NFTMeta&gt;&gt; <b>acquires</b> <a href="NFT.md#0x1_NFTGallery">NFTGallery</a>{
+<pre><code><b>public</b> <b>fun</b> <a href="NFT.md#0x1_NFTGallery_get_nft_info_by_id">get_nft_info_by_id</a>&lt;NFTMeta: <b>copy</b> + store + drop, NFTBody: store&gt;(owner: address, id: u64): <a href="Option.md#0x1_Option">Option</a>&lt;<a href="NFT.md#0x1_NFT_NFTInfo">NFT::NFTInfo</a>&lt;NFTMeta&gt;&gt; <b>acquires</b> <a href="NFT.md#0x1_NFTGallery">NFTGallery</a> {
     <b>let</b> gallery = borrow_global_mut&lt;<a href="NFT.md#0x1_NFTGallery">NFTGallery</a>&lt;NFTMeta, NFTBody&gt;&gt;(owner);
     <b>let</b> idx = <a href="NFT.md#0x1_NFTGallery_find_by_id">find_by_id</a>&lt;NFTMeta, NFTBody&gt;(&gallery.items, id);
 
@@ -262,7 +262,7 @@ Get the NFT info by the NFT idx in NFTGallery
 <summary>Implementation</summary>
 
 
-<pre><code><b>public</b> <b>fun</b> <a href="NFT.md#0x1_NFTGallery_get_nft_info_by_idx">get_nft_info_by_idx</a>&lt;NFTMeta: <b>copy</b> + store + drop, NFTBody: store&gt;(owner: address, idx: u64): <a href="NFT.md#0x1_NFT_NFTInfo">NFT::NFTInfo</a>&lt;NFTMeta&gt; <b>acquires</b> <a href="NFT.md#0x1_NFTGallery">NFTGallery</a>{
+<pre><code><b>public</b> <b>fun</b> <a href="NFT.md#0x1_NFTGallery_get_nft_info_by_idx">get_nft_info_by_idx</a>&lt;NFTMeta: <b>copy</b> + store + drop, NFTBody: store&gt;(owner: address, idx: u64): <a href="NFT.md#0x1_NFT_NFTInfo">NFT::NFTInfo</a>&lt;NFTMeta&gt; <b>acquires</b> <a href="NFT.md#0x1_NFTGallery">NFTGallery</a> {
     <b>let</b> gallery = borrow_global_mut&lt;<a href="NFT.md#0x1_NFTGallery">NFTGallery</a>&lt;NFTMeta, NFTBody&gt;&gt;(owner);
     <b>let</b> nft = <a href="Vector.md#0x1_Vector_borrow">Vector::borrow</a>&lt;<a href="NFT.md#0x1_NFT">NFT</a>&lt;NFTMeta, NFTBody&gt;&gt;(&gallery.items, idx);
     <a href="NFT.md#0x1_NFT_get_info">NFT::get_info</a>(nft)
@@ -289,12 +289,12 @@ Get the all NFT info
 <summary>Implementation</summary>
 
 
-<pre><code><b>public</b> <b>fun</b> <a href="NFT.md#0x1_NFTGallery_get_nft_infos">get_nft_infos</a>&lt;NFTMeta: <b>copy</b> + store + drop, NFTBody: store&gt;(owner: address): vector&lt;<a href="NFT.md#0x1_NFT_NFTInfo">NFT::NFTInfo</a>&lt;NFTMeta&gt;&gt; <b>acquires</b> <a href="NFT.md#0x1_NFTGallery">NFTGallery</a>{
+<pre><code><b>public</b> <b>fun</b> <a href="NFT.md#0x1_NFTGallery_get_nft_infos">get_nft_infos</a>&lt;NFTMeta: <b>copy</b> + store + drop, NFTBody: store&gt;(owner: address): vector&lt;<a href="NFT.md#0x1_NFT_NFTInfo">NFT::NFTInfo</a>&lt;NFTMeta&gt;&gt; <b>acquires</b> <a href="NFT.md#0x1_NFTGallery">NFTGallery</a> {
     <b>let</b> gallery = borrow_global_mut&lt;<a href="NFT.md#0x1_NFTGallery">NFTGallery</a>&lt;NFTMeta, NFTBody&gt;&gt;(owner);
     <b>let</b> infos = <a href="Vector.md#0x1_Vector_empty">Vector::empty</a>();
     <b>let</b> len = <a href="Vector.md#0x1_Vector_length">Vector::length</a>(&gallery.items);
     <b>let</b> idx = 0;
-    <b>while</b>(len &gt; idx) {
+    <b>while</b> (len &gt; idx) {
         <b>let</b> nft = <a href="Vector.md#0x1_Vector_borrow">Vector::borrow</a>&lt;<a href="NFT.md#0x1_NFT">NFT</a>&lt;NFTMeta, NFTBody&gt;&gt;(&gallery.items, idx);
         <a href="Vector.md#0x1_Vector_push_back">Vector::push_back</a>(&<b>mut</b> infos, <a href="NFT.md#0x1_NFT_get_info">NFT::get_info</a>(nft));
         idx = idx + 1;
